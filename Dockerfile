@@ -1,20 +1,22 @@
 FROM php:8.4-cli
 
-# Installation des dépendances système et de Node.js 20
-RUN apt-get update && apt-get install -y \
+# Installation des dépendances système de base
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     curl \
     libpq-dev \
     libzip-dev \
     zip \
     unzip \
-    && curl -fsSL https://nodesource.com | bash - \
-    && apt-get install -y nodejs
+    && docker-php-ext-install pdo pdo_pgsql pgsql zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Activation des extensions PHP pour Laravel et PostgreSQL
-RUN docker-php-ext-install pdo pdo_pgsql pgsql zip
+# Copie directe de Node.js 22 et npm depuis l'image officielle (sans script externe)
+COPY --from=node:22-slim /usr/local/bin /usr/local/bin
+COPY --from=node:22-slim /usr/local/lib/node_modules /usr/local/lib/node_modules
 
-# Installation de Composer
+# Copie de Composer depuis l'image officielle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Définition du dossier de travail
