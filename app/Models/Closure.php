@@ -18,9 +18,7 @@ class Closure extends Model
         'date_cloture' => 'datetime', // Gère proprement l'objet Date en PHP
     ];
 
-    /**
-     * Obtenir le comptable ayant validé l'arrêté de caisse.
-     */
+    
     public function comptable(): BelongsTo
     {
         return $this->belongsTo(Personne::class, 'cloture_par_id');

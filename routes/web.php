@@ -41,7 +41,12 @@ Route::get('/support', function () {
 Route::get('/login', function () {
     return Inertia::render('Personne/Login'); 
 })->name('login');
+Route::get('/about', function () {
+    return Inertia::render('About'); 
+})->name('about');
 Route::post('/login', [PersonneController::class, 'connexion']);
+Route::post('/verifierLogin', [PersonneController::class, 'verifierUtilisateurDirect']);
+Route::post('/resetPassword', [PersonneController::class, 'renitialiserMDP']);
         
 ;require __DIR__.'/settings.php';
 

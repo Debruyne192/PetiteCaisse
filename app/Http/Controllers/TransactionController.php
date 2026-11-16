@@ -191,5 +191,20 @@ public function monHistorique()
         'operations' => $mesOperations
     ]);
 }
+public function historiqueManager()
+{
+    if (Auth::user()->role === 'comptable') {
+        abort(403, "Accès refusé. Cette section est réservée aux caissiers.");
+    }
+
+    $mesOperations = Transaction::with(['categorie', 'controleur'])
+                                ->where('personne_id', Auth::id())
+                                ->latest()
+                                ->get();
+
+    return Inertia::render('Transaction/historiqueManager', [
+        'operations' => $mesOperations
+    ]);
+}
 
 }

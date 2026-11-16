@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('personnes', function (Blueprint $blueprint) {
-            $blueprint->id(); // Ajoute la clé primaire auto-incrémentée (id)
+            $blueprint->id();
             $blueprint->string('name');
-            $blueprint->string('email')->unique(); // Recommandé d'ajouter ->unique() pour les emails
-            $blueprint->integer('age');
+            $blueprint->string('email')->unique(); 
+            $blueprint->integer('age')->nullable();
             $blueprint->string('login')->unique();
             $blueprint->string('password');
-            $blueprint->string('adresse');
+            $blueprint->string('adresse')->nullable();
             $blueprint->string('role');
-            $blueprint->string('image')->nullable(); //  CORRECTION : Ajout des parenthèses () pour le rendre nullable
-            $blueprint->rememberToken(); // Recommandé pour la gestion des sessions d'authentification Laravel
+            $blueprint->string('image')->nullable();
+            $blueprint->rememberToken();
             $blueprint->timestamps();
         });
     }

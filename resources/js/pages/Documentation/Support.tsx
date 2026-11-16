@@ -4,7 +4,7 @@ import { Phone, Mail, Clock, HelpCircle } from 'lucide-react';
 
 export default function Support() {
     return (
-        <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm max-w-2xl mx-auto space-y-6">
+        <div className="md:w-[200%] bg-[#111827] text-white p-8 rounded-2xl border shadow-sm max-w-2xl mx-auto space-y-6">
             <Head title="Assistance Technique" />
 
             <div className="flex items-center gap-3 border-b pb-4">
@@ -12,16 +12,15 @@ export default function Support() {
                     <HelpCircle size={24} />
                 </div>
                 <div>
-                    <h1 className="text-xl font-bold text-slate-800">Centre d'assistance</h1>
-                    <p className="text-sm text-slate-500">Besoin d'aide ou signalement d'un dysfonctionnement ?</p>
+                    <h1 className="text-xl font-bold ">Centre d'assistance</h1>
+                    <p className="text-sm text-slate-400">Besoin d'aide ou signalement d'un dysfonctionnement ?</p>
                 </div>
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm leading-relaxed">
                 Si vous rencontrez une erreur réseau (ex: réinitialisation du serveur d'actifs, anomalie d'authentification) ou si vous constatez un écart sur le solde numérique disponible, veuillez contacter la cellule de support informatique de l'établissement.
             </p>
 
-            {/* Canaux de contact */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div className="p-4 border border-slate-200 rounded-xl flex items-center gap-3">
                     <div className="text-indigo-600"><Mail size={20} /></div>

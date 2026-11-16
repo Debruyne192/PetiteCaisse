@@ -41,10 +41,10 @@ class PersonneController extends Controller
         $validated = $request->validate([
             'name'=>'required|string|max:50',
             'email'=>'required|email|string|max:50',
-            'age'=>'required|integer',
+            'age'=>'nullable|integer',
             'login'=>'required|string|max:50',
             'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()], 
-            'adresse'=>'required|string|max:50',
+            'adresse'=>'nullable|string|max:50',
             'role'=>'required|string|max:50',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
@@ -55,15 +55,28 @@ class PersonneController extends Controller
 
     $validated['password'] = Hash::make($request->password);
 
-    $personne=Personne::create($validated);
-    /*
-    if(Auth::user()->role === "manager"){
+    if(Auth()->check()){
+            $personne=Personne::create($validated);
             return back()->with('success','Utilisateur ajouté avec succès');
         }
-    */
-    Auth::login($personne);
+    elseif(!Auth()->check()){
+        if($request->role ==="manager" || $request->role ==="comptable"){
+            $managerCount = Personne::where('role','manager')->count();
+            $comptableCount = Personne::where('role','comptable')->count();
+            if($managerCount > 1 || $comptableCount > 1){
+                return back()->withErrors([
+                    'login' => 'Vous ne pouvez pas créer un compte pour ce rôle'
+                ]);
+                
+            }
+            $personne=Personne::create($validated);
+            Auth::login($personne);
+        }
+        
+    }
     
-    return redirect()->route('personne.dashboard')->with('success','Utilisateur ajouté avec succès');
+    
+    return redirect()->route('personne.dashboard')->with('success','Soit le bienvenu');
     
     }
 
@@ -147,6 +160,50 @@ public function connexion(Request $request)
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-    return redirect('/login');
+    return redirect('/');
+    }
+    public function verifierUtilisateurDirect(Request $request)
+{
+    $request->validate([
+        'login' => 'required|string',
+    ]);
+    
+    $userExiste =Personne::where('login', $request->login)->exists();
+
+    if ($userExiste) {
+        return redirect()->back()->with('success', 'Utilisateur identifié.');
+    }
+
+    return redirect()->back()->withErrors([
+        'login' => 'Cet identifiant n\'existe pas dans les registres de BELTEK.'
+    ]);
+}
+    public function renitialiserMDP(Request $request)
+    {
+        $request->validate([
+            'login'    => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'login.required'    => 'Le login est requis pour identifier l\'agent.',
+            'password.required' => 'Le nouveau mot de passe est obligatoire.',
+            'password.min'      => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'password.confirmed'=> 'Les deux mots de passe saisis ne sont pas identiques.',
+        ]);
+
+        $agent = Personne::where('login', $request->login)
+                         ->first();
+
+        if (!$agent) {
+            return redirect()->back()->withErrors([
+                'login' => 'Une erreur critique est survenue : Utilisateur introuvable.'
+            ]);
+        }
+
+        $agent->password = Hash::make($request->password);
+
+        $agent->save();
+
+        return redirect()->back()->with('success', 'Votre nouveau mot de passe a été enregistré avec succès. Vous pouvez vous connecter.');
     }
 }
+

@@ -10,10 +10,10 @@ use App\Concerns\HasTeams;
 
 class Personne extends Authenticatable
 {
-    //
+    
     use Notifiable;
-    use HasTeams; //  AJOUTER CE TRAIT ICI
-        protected $table = 'personnes'; // Optionnel si votre table respecte le pluriel automatique
+    use HasTeams;
+        protected $table = 'personnes'; 
 
     protected $fillable =[
         'name',
@@ -28,20 +28,15 @@ class Personne extends Authenticatable
     protected $hidden = ['password','remember_token'];
 
     protected $casts = [
-        'password' => 'hashed', // Hache automatiquement les mots de passe
+        'password' => 'hashed', 
     ];
 
-    /**
-     * Obtenir les transactions enregistrées par ce caissier.
-     */
+    
     public function transactionsSaisies(): HasMany
     {
         return $this->hasMany(Transaction::class, 'personne_id');
     }
 
-    /**
-     * Obtenir les transactions validées ou rejetées par ce manager.
-     */
     public function transactionsControlees(): HasMany
     {
         return $this->hasMany(Transaction::class, 'controle_par_id');

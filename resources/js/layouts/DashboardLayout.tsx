@@ -41,7 +41,6 @@ export default function DashboardLayout({
 }) {
     const { url, props } = usePage();
 
-    // 💡 ÉTAT POUR GÉRER L'OUVERTURE COULISSANTE SUR MOBILE
     const [isMobileOpen, setIsMobileOpen] = useState(false);
 
     const auth = props.auth as unknown as {
@@ -112,14 +111,14 @@ export default function DashboardLayout({
         <div className="app-container">
             {isMobileOpen && (
                 <div 
-                    className="fixed inset-0 bg-black/40 z-40 sm:hidden"
+                    className="fixed inset-0 bg-black/40 z-40"
                     onClick={() => setIsMobileOpen(false)}
                 />
             )}
 
-            <aside className={`sidebar max-sm:bg-amber-700 ${isMobileOpen ? 'mobile-sidebar-open' : 'mobile-sidebar-closed'}`}>
+            <aside className={` lg:bg-amber-700 ${isMobileOpen ? 'mobile-sidebar-open' : 'mobile-sidebar-closed'} sidebar`}>
                 <div className="absolute bars  cursor-pointer right-1.5 top-6.5" onClick={() => setIsMobileOpen(false)}>
-                        <X size={22} className="md:hidden "/>
+                        <X size={22} className="lg:hidden" />
                 </div>
 
                 {user && (
@@ -192,15 +191,15 @@ export default function DashboardLayout({
                 )}
             </aside>
 
-            <main className="main-content max-sm:ml-0">
-                <div className="sm:hidden p-4 bg-white border-b sticky top-0 flex items-center justify-between z-30 shadow-sm">
+            <main className="main-content max-lg:ml-0">
+                <div className="lg:hidden p-4 bg-white border-b sticky top-0 flex items-center justify-between z-30 shadow-sm">
                     <button onClick={() => setIsMobileOpen(true)} className="p-1 rounded text-gray-700 bg-transparent border-0 cursor-pointer">
                         <Menu size={24} />
                     </button>
                     <span className="font-bold text-xs text-gray-700 uppercase tracking-wider">Espace {user?.role}</span>
                 </div>
 
-                <div className="p-4 sm:p-8">
+                <div className="p-4 ">
                     {children}
                 </div>
             </main>

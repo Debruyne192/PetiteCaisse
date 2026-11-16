@@ -37,8 +37,6 @@ export default function Sidebar({
 }) {
     const { url, props } = usePage();
 
-    // 👇 On passe d'abord par unknown pour éviter
-    // le conflit de types entre Inertia et notre User
     const auth = props.auth as unknown as {
         user: User | null;
     };

@@ -343,7 +343,7 @@
 ========================================= */
 
 /* Gestion du comportement adaptatif mobile */
-@media (max-width: 640px) {
+@media (max-width: 1023px) {
   .sidebar {
     position: fixed !important;
     top: 0;

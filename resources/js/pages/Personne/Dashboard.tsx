@@ -98,17 +98,17 @@ export default function Dashboard({soldeRestant , totalCredits , totalDebits ,co
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 border-l-8 border-emerald-500">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border  border-l-8 border-emerald-500">
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Solde Numérique Disponible</p>
                         <p className="text-2xl font-black text-emerald-600 mt-2">{soldeRestant.toLocaleString('fr-FR')} F</p>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 border-l-8 border-blue-500">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border  border-l-8 border-blue-500">
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Approvisionnements</p>
                         <p className="text-2xl font-black text-blue-600 mt-2">+{totalCredits.toLocaleString('fr-FR')} F</p>
                     </div>
 
-                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 border-l-8 border-rose-500">
+                    <div className="bg-white p-6 rounded-xl shadow-sm border  border-l-8 border-rose-500">
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Dépenses Validées</p>
                         <p className="text-2xl font-black text-rose-600 mt-2">-{totalDebits.toLocaleString('fr-FR')} F</p>
                     </div>

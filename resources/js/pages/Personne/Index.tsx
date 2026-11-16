@@ -145,7 +145,6 @@ if (isEdit && selectedId) {
                             <th className="py-4 px-6">Nom</th>
                             <th className="py-4 px-6">Age</th>
                             <th className="py-4 px-6">Adresse</th>
-                            <th className="py-4 px-6">Login</th>
                             <th className="py-4 px-6">Rôle</th>
                             <th className="py-4 px-6 text-right">Actions</th>
                         </tr>
@@ -166,7 +165,6 @@ if (isEdit && selectedId) {
                                     <td className="py-4 px-6 font-medium text-slate-900">{perso.name}</td>
                                     <td className="py-4 px-6">{perso.age} ans</td>
                                     <td className="py-4 px-6">{perso.adresse}</td>
-                                    <td className="py-4 px-6 font-mono text-xs">{perso.login}</td>
                                     <td className="py-4 px-6">
                                         <span className={`inline-block text-xs font-semibold px-2 py-0.5 rounded capitalize ${
                                             perso.role === 'comptable' ? 'bg-purple-100 text-purple-800' :

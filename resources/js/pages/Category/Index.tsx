@@ -146,7 +146,7 @@ export default function Index({ categories = [] }: IndexProps) {
                     </div>
                 ) : (
                     <div>
-                        <div className="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div className="p-6 border-b border-slate-100 flex flex-col items-center gap-4">
                 <div>
                     <h1 className="text-xl font-bold text-slate-800">La liste des catégories</h1>
                     <p className="text-sm text-slate-500 mt-1">Gestion et suivi des catégories d'articles.</p>
