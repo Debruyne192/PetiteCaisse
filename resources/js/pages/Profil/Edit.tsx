@@ -118,7 +118,7 @@ export default function Edit({ user }: Props) {
                         </div>
                         <div>
                             <Label htmlFor="age">Votre âge</Label>
-                            <Input type='number' id="age" value={data.age} onChange={e => setData('age', e.target.value)} required />
+                            <Input type='number' id="age" value={data.age} onChange={e => setData('age', e.target.value)}  />
                             <InputError message={errors.age} />
                         </div>
                     </div>
@@ -127,7 +127,7 @@ export default function Edit({ user }: Props) {
                         
                         <div>
                             <Label htmlFor="adresse">Adresse</Label>
-                            <Input id="adresse" value={data.adresse} onChange={e => setData('adresse', e.target.value)} required />
+                            <Input id="adresse" value={data.adresse} onChange={e => setData('adresse', e.target.value)}  />
                             <InputError message={errors.adresse} />
                         </div>
                     </div>

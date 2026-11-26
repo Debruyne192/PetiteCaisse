@@ -13,21 +13,18 @@ interface CreerTransactionProps {
 }
 
 export default function Create({ categories }: CreerTransactionProps) {
-    // 1. Initialisation du hook de formulaire d'Inertia avec typage strict
     const { data, setData, post, processing, errors } = useForm({
         montant: '',
-        type: 'debit', // Valeur par défaut : Débit (Dépense)
+        type: 'debit', 
         description: '',
         reference_piece: '',
-        chemin_justificatif: null as File | null, // Fichier binaire pour la photo du reçu
+        chemin_justificatif: null as File | null, 
         categorie_id: ''
     });
 
-    // 2. Traitement de la soumission asynchrone (POST)
     const soumettreFormulaire = (e: FormEvent) => {
         e.preventDefault();
         
-        // Inertia convertit automatiquement l'objet en FormData dès qu'il détecte un fichier File
         post('/transaction');
     };
 
@@ -44,7 +41,6 @@ export default function Create({ categories }: CreerTransactionProps) {
                 </div>
 
                 <form onSubmit={soumettreFormulaire} className="space-y-5">
-                    {/* --- SÉLECTION DU TYPE DE MOUVEMENT --- */}
                     <div>
                         <label className="block text-xs font-bold uppercase text-gray-500 mb-2">Type de Flux</label>
                         <div className="grid grid-cols-2 gap-4">
@@ -73,7 +69,6 @@ export default function Create({ categories }: CreerTransactionProps) {
                         </div>
                     </div>
 
-                    {/* --- CHAMP MONTANT --- */}
                     <div>
                         <label htmlFor="montant" className="block text-xs font-bold uppercase text-gray-500 mb-1">Montant (FCFA)</label>
                         <input
@@ -88,7 +83,6 @@ export default function Create({ categories }: CreerTransactionProps) {
                         {errors.montant && <p className="text-xs text-rose-600 font-semibold mt-1">{errors.montant}</p>}
                     </div>
 
-                    {/* --- CHAMP SÉLECTION DES CATÉGORIES (UNIQUEMENT POUR LES DÉBITS) --- */}
                     {data.type === 'debit' && (
                         <div>
                             <label htmlFor="categorie_id" className="block text-xs font-bold uppercase text-gray-500 mb-1">Catégorie de Frais</label>
@@ -107,7 +101,6 @@ export default function Create({ categories }: CreerTransactionProps) {
                         </div>
                     )}
 
-                    {/* --- CHAMP DESCRIPTION (MOTIF) --- */}
                     <div>
                         <label htmlFor="description" className="block text-xs font-bold uppercase text-gray-500 mb-1">Motif / Description</label>
                         <input
@@ -121,7 +114,6 @@ export default function Create({ categories }: CreerTransactionProps) {
                         {errors.description && <p className="text-xs text-rose-600 font-semibold mt-1">{errors.description}</p>}
                     </div>
 
-                    {/* --- CHAMP RÉFÉRENCE DE LA PIÈCE (REÇU OU CHÈQUE) --- */}
                     <div>
                         <label htmlFor="reference_piece" className="block text-xs font-bold uppercase text-gray-500 mb-1">
                             {data.type === 'debit' ? 'Référence du Reçu (Optionnel)' : 'Référence du Bon / Chèque'}
@@ -133,31 +125,35 @@ export default function Create({ categories }: CreerTransactionProps) {
                             className="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                             value={data.reference_piece}
                             onChange={e => setData('reference_piece', e.target.value)}
+                            required
                         />
                         {errors.reference_piece && <p className="text-xs text-rose-600 font-semibold mt-1">{errors.reference_piece}</p>}
                     </div>
 
-                    {/* --- TÉLÉVERSEMENT DU JUSTIFICATIF (OBLIGATOIRE POUR LES DÉBITS) --- */}
                     {data.type === 'debit' && (
                         <div>
-                            <label htmlFor="chemin_justificatif" className="block text-xs font-bold uppercase text-gray-500 mb-1">Preuve Numérique (Photo / Scan Reçu)</label>
+                         <label htmlFor="chemin_justificatif" className="block text-xs font-bold uppercase text-gray-500 mb-1">
+                              Preuve Numérique (Photo / Scan Reçu) <span className="text-gray-400 font-normal lowercase">(optionnel)</span>
+                         </label>
                             <input
-                                id="chemin_justificatif"
-                                type="file"
-                                accept="image/*,application/pdf"
-                                className="w-full border border-gray-300 bg-gray-50 rounded-lg p-2 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300 cursor-pointer"
-                                onChange={e => {
-                                    const fichiers = e.target.files;
-                                    if (fichiers && fichiers.length > 0) {
-                                        setData('chemin_justificatif', fichiers[0]);
-                                    }
-                                }}
+                               id="chemin_justificatif"
+                               type="file"
+                              accept="image/*,application/pdf"
+                              className="w-full border border-gray-300 bg-gray-50 rounded-lg p-2 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300 cursor-pointer"
+                             onChange={e => {
+                                 const fichiers = e.target.files;
+                                 if (fichiers && fichiers.length > 0) {
+                                     setData('chemin_justificatif', fichiers[0]);
+                                 } else {
+                                      setData('chemin_justificatif', null);
+                                 }
+                             }}
                             />
                             {errors.chemin_justificatif && <p className="text-xs text-rose-600 font-semibold mt-1">{errors.chemin_justificatif}</p>}
                         </div>
+
                     )}
 
-                    {/* --- BOUTON DE SOUMISSION --- */}
                     <button
                         type="submit"
                         disabled={processing}

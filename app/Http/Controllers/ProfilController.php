@@ -26,8 +26,8 @@ class ProfilController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'email' => ['required', 'email', 'max:50', Rule::unique('personnes')->ignore($user->id)],
-            'age'=>'required|integer',
-            'adresse' => 'required|string|max:50',
+            'age'=>'nullable|integer',
+            'adresse' => 'nullable|string|max:50',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 

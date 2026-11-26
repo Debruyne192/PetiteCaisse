@@ -191,12 +191,12 @@ export default function DashboardLayout({
                 )}
             </aside>
 
-            <main className="main-content max-lg:ml-0">
-                <div className="lg:hidden p-4 bg-white border-b sticky top-0 flex items-center justify-between z-30 shadow-sm">
-                    <button onClick={() => setIsMobileOpen(true)} className="p-1 rounded text-gray-700 bg-transparent border-0 cursor-pointer">
+            <main className="main-content max-lg:ml-0 lg:mt-[-18]">
+                <div className="p-4 bg-white border-b sticky top-0 flex items-center justify-between z-30 shadow-sm lg:p-6">
+                    <button onClick={() => setIsMobileOpen(true)} className="lg:hidden p-1 rounded text-gray-700 bg-transparent border-0 cursor-pointer">
                         <Menu size={24} />
                     </button>
-                    <span className="font-bold text-xs text-gray-700 uppercase tracking-wider">Espace {user?.role}</span>
+                    <span className="font-bold text-xs text-gray-700 uppercase tracking-wider lg:ml-[80vh]">Espace {user?.role}</span>
                 </div>
 
                 <div className="p-4 ">

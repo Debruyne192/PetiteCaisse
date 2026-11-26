@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('montant'); 
             $table->enum('type', ['debit', 'credit']); 
             $table->string('description'); 
-            $table->string('reference_piece')->nullable(); 
+            $table->string('reference_piece'); 
             $table->string('chemin_justificatif')->nullable();            
             $table->enum('statut', ['en_attente', 'validé', 'rejeté'])->default('en_attente'); 
             $table->foreignId('controle_par_id')->nullable()->constrained('personnes')->onDelete('set null'); 

@@ -100,24 +100,23 @@ public function create()
             'montant'         => 'required|integer|min:1',
             'type'            => 'required|in:debit,credit',
             'description'     => 'required|string|max:255',
-            'reference_piece' => 'nullable|string|max:100',
+            'reference_piece' => 'required|string|max:100',
         ];
 
         if ($request->type === 'debit') {
             $regles['categorie_id']        = 'required|exists:categories,id';
-            $regles['chemin_justificatif'] = 'required|file|mimes:jpg,jpeg,png,pdf|max:2048'; // 2 Mo max
+            $regles['chemin_justificatif'] = 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048';
         }
 
         $donneesValidees = $request->validate($regles);
 
         $cheminFichier = null;
         if ($request->hasFile('chemin_justificatif')) {
-            // Laravel stocke le fichier avec un nom unique dans "storage/app/public/justificatifs"
             $cheminFichier = $request->file('chemin_justificatif')->store('justificatifs', 'public');
         }
 
         Transaction::create([
-            'personne_id'         => Auth::id(), // ID du caissier connecté
+            'personne_id'         => Auth::id(),
             'categorie_id'        => $request->type === 'debit' ? $request->categorie_id : null,
             'montant'             => $request->montant,
             'type'                => $request->type,
@@ -131,6 +130,61 @@ public function create()
         return redirect()->route('personne.dashboard')->with('success','L\'opération de caisse a été enregistrée avec succès.'
         );
     }
+
+public function update(Request $request, Transaction $transaction)
+{
+    if (Auth::user()->role !== 'caissier') {
+        abort(403, "Action non autorisée pour votre profil.");
+    }
+
+    if ($transaction->est_verrouille) {
+        return back()->withErrors(['erreur' => 'Cette transaction est verrouillée et ne peut plus être modifiée.']);
+    }
+
+    $regles = [
+        'montant'         => 'required|integer|min:1',
+        'type'            => 'required|in:debit,credit',
+        'description'     => 'required|string|max:255',
+        'reference_piece' => 'nullable|string|max:100',
+    ];
+
+    if ($request->type === 'debit') {
+        $regles['categorie_id'] = 'required|exists:categories,id';
+        
+        if ($request->hasFile('chemin_justificatif')) {
+            $regles['chemin_justificatif'] = 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048';
+        }
+    }
+
+    $request->validate($regles);
+
+    $cheminFichier = $transaction->chemin_justificatif;
+
+    if ($request->type === 'credit') {
+        if ($cheminFichier) {
+            Storage::disk('public')->delete($cheminFichier);
+            $cheminFichier = null;
+        }
+    } elseif ($request->hasFile('chemin_justificatif')) {
+        if ($cheminFichier) {
+            Storage::disk('public')->delete($cheminFichier);
+        }
+        $cheminFichier = $request->file('chemin_justificatif')->store('justificatifs', 'public');
+    }
+
+    $transaction->update([
+        'categorie_id'        => $request->type === 'debit' ? $request->categorie_id : null,
+        'montant'             => $request->montant,
+        'type'                => $request->type,
+        'description'         => $request->description,
+        'reference_piece'     => $request->reference_piece,
+        'chemin_justificatif' => $cheminFichier,
+        'statut'              => $request->type === 'credit' ? 'validé' : 'en_attente',
+    ]);
+
+    return redirect()->route('personne.dashboard')->with('success', 'L\'opération de caisse a été mise à jour avec succès.');
+}
+
 
     
     public function valider(Transaction $transaction)

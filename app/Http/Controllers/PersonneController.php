@@ -120,8 +120,8 @@ public function connexion(Request $request)
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'email' => ['required', 'email', 'max:50', Rule::unique('personnes')->ignore($personne->id)],
-            'age'=>'required|integer',
-            'adresse' => 'required|string|max:50',
+            'age'=>'nullable|integer',
+            'adresse' => 'nullable|string|max:50',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048',
         ]);
 

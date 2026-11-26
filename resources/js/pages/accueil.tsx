@@ -35,7 +35,7 @@ export default function accueil({ auth }: WelcomeProps) {
             <Head title="Bienvenue - G-Caisse Web" />
 
             <div className=" min-h-screen bg-slate-50 font-sans antialiased relative overflow-hidden text-slate-800">
-                <div className="max-md:hidden absolute top-0 right-0 w-full lg:w-6/12 h-[152vh] bg-linear-to-br from-slate-900 to-indigo-950 rounded-b-[60px] lg:rounded-b-none lg:rounded-l-[100px] transition-all duration-500 z-0"></div>
+                <div className="max-lg:hidden lg:block absolute top-0 right-0 w-full lg:w-6/12 h-[152vh] bg-linear-to-br from-slate-900 to-indigo-950 rounded-b-[60px] lg:rounded-b-none lg:rounded-l-[100px] transition-all duration-500 z-0"></div>
                 {!isMenuOpen && (
                 <button 
                     className="absolute cursor-pointer right-6 top-6 z-50 md:hidden bg-slate-900/10 backdrop-blur-md p-2 rounded-xl text-white border border-white/10" 
@@ -59,35 +59,35 @@ export default function accueil({ auth }: WelcomeProps) {
                             alt="Photo du logo" 
                             className="bg-slate-900 h-12 w-12 rounded-full border-2 border-indigo-500/30 object-cover shadow-sm"
                         />
-                        <span className="text-xl font-black tracking-tight text-indigo-600 lg:text-black">G-CAISSE WEB</span>
+                        <span className="text-xl font-black tracking-tight text-black">G-CAISSE WEB</span>
                     </div>
 
                     <div className={`${isMenuOpen ? "fixed max-md:w-50 top-4 right-0 max-md:bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl flex max-md:flex-col items-center md:space-x-20 max-md:space-y-1 shadow-2xl text-left animate-fade-in z-50" : "max-md:hidden flex gap-8"}`}>
                        <Link 
                             href="/" 
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg transition ${
-                                url === '/' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900'
+                                url === '/' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900 md:text-black lg:text-white'
                             }`} onClick={() => setIsMenuOpen(false)}>
                             Accueil
                         </Link>
                         <Link 
                             href="/aide" 
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg transition ${
-                                url === '/aide' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900'
+                                url === '/aide' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900 md:text-black lg:text-white'
                             }`} onClick={() => setIsMenuOpen(false)}>
                             Documentation
                         </Link>
                         <Link 
                             href="/support" 
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg transition ${
-                                url === '/support' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900'
+                                url === '/support' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900 md:text-black lg:text-white'
                             }`} onClick={() => setIsMenuOpen(false)}>
                             Assistance
                         </Link>
                         <Link 
                             href="/about" 
                             className={`flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-lg transition ${
-                                url === '/about' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900'
+                                url === '/about' ? 'bg-indigo-50 text-indigo-600' : 'text-white hover:bg-slate-100 hover:text-slate-900 md:text-black lg:text-white'
                             }`} onClick={() => setIsMenuOpen(false)}>
                             A propos
                         </Link>
@@ -104,9 +104,9 @@ export default function accueil({ auth }: WelcomeProps) {
                     </div>
                 </nav>
 
-                <header className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-80px)] z-1 pb-16 lg:pb-0">
+                <header className="relative max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center min-h-[calc(100vh-80px)] z-1 pb-16 lg:pb-0">
                     
-                    <div className={` ${isMenuOpen ? "max-md:mt-35" : ""} space-y-6 max-w-xl text-center lg:text-left mt-6 lg:mt-0`}>
+                    <div className={` ${isMenuOpen ? "max-md:mt-35" : ""} space-y-6 max-w-xl max-md:ml-[50px]  lg:text-left mt-6 lg:mt-0`}>
                         <span className="inline-block px-4 py-1.5 bg-emerald-50 border border-emerald-100 text-emerald-800 rounded-full text-xs font-bold uppercase tracking-wider">
                             🎓 Entreprise BELTEK - Univers des services numériques
                         </span>
@@ -121,14 +121,7 @@ export default function accueil({ auth }: WelcomeProps) {
                             Dites adieu aux tableurs Excel fragiles. Sécurisez vos flux de trésorerie avec un système à double signature, un arrêté de caisse immuable et un archivage numérique des justificatifs binaires.
                         </p>
                         
-                        <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start">
-                            <Link 
-                                href="/showLogin" 
-                                className="w-full sm:w-auto text-center px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-xl shadow-emerald-600/20 hover:shadow-emerald-600/30 transition transform hover:-translate-y-0.5"
-                            >
-                                Accéder au Système
-                            </Link>
-                        </div>
+                       
                     </div>
 
                     <div className="ml-30 relative flex justify-center items-center h-full min-h-112.5 lg:min-h-none">

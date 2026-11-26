@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { ReactNode } from 'react';
 import React from 'react';
 import { Briefcase, LogIn, UserPlus, Home ,Menu,X} from 'lucide-react';
+import "./Sidebar.css";
 
 interface GuestLayoutProps {
     children: ReactNode;
@@ -40,7 +41,7 @@ export default function AccueilLayout({ children }: GuestLayoutProps) {
                             alt="Photo du logo" 
                             className="bg-slate-900 h-12 w-12 rounded-full border-2 border-indigo-500/30 object-cover shadow-sm"
                         />
-                        <span className="text-xl font-black tracking-tight text-indigo-600 lg:text-black">G-CAISSE WEB</span>
+                        <span className="text-xl font-black tracking-tight text-black">G-CAISSE WEB</span>
                     </div>
 
                     <div className={`${isMenu ? "fixed top-4 right-1 bg-slate-900/95 backdrop-blur-xl border border-slate-800 rounded-3xl flex max-md:flex-col items-center max-md:space-y-1 shadow-2xl animate-fade-in z-50 p-5" : "max-md:hidden gap-8 flex flex-row bg-slate-900/95 backdrop-blur-xl border border-slate-800 -mr-18 rounded-lg p-5"}`}>

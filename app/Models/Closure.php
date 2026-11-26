@@ -15,7 +15,7 @@ class Closure extends Model
     ];
 
     protected $casts = [
-        'date_cloture' => 'datetime', // Gère proprement l'objet Date en PHP
+        'date_cloture' => 'datetime',
     ];
 
     

@@ -215,7 +215,7 @@ if (isEdit && selectedId) {
                             </div>
                             <div>
                                 <label className="text-xs font-medium text-gray-700">Âge</label>
-                                <input type="number" value={data.age} onChange={(e) => setData('age', e.target.value)} className="w-full mt-1 px-3 py-2 border rounded-lg text-sm" required />
+                                <input type="number" value={data.age} onChange={(e) => setData('age', e.target.value)} className="w-full mt-1 px-3 py-2 border rounded-lg text-sm"  />
                                 {errors.age && <span className="text-red-500 text-xs">{errors.age}</span>}
                             </div>
                         </div>
@@ -236,7 +236,7 @@ if (isEdit && selectedId) {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="text-xs font-medium text-gray-700">Adresse Physique</label>
-                                <input type="text" value={data.adresse} onChange={(e) => setData('adresse', e.target.value)} className="w-full mt-1 px-3 py-2 border rounded-lg text-sm" required />
+                                <input type="text" value={data.adresse} onChange={(e) => setData('adresse', e.target.value)} className="w-full mt-1 px-3 py-2 border rounded-lg text-sm" />
                                 {errors.adresse && <span className="text-red-500 text-xs">{errors.adresse}</span>}
                             </div>
 

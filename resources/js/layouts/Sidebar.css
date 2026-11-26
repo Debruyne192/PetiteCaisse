@@ -1,7 +1,3 @@
-/* =========================================
-   CONTAINER PRINCIPAL
-========================================= */
-
 .app-container {
     display: flex;
     min-height: 100vh;
@@ -9,12 +5,8 @@
 }
 
 
-/* =========================================
-   SIDEBAR
-========================================= */
 
 .sidebar {
-    /*width: 260px; */
     min-height: 100vh;
 
     display: flex;
@@ -33,9 +25,6 @@
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
 
 .top-section {
     height: 70px;
@@ -49,7 +38,6 @@
 }
 
 
-/* LOGO */
 
 .logo {
     margin: 0;
@@ -64,7 +52,6 @@
 }
 
 
-/* BOUTON MENU */
 
 .bars {
     width: 38px;
@@ -90,9 +77,6 @@
 }
 
 
-/* =========================================
-   PROFIL UTILISATEUR
-========================================= */
 
 .user-profile {
     display: flex;
@@ -107,7 +91,6 @@
 }
 
 
-/* AVATAR */
 
 .user-avatar {
     height: 42px;
@@ -129,7 +112,6 @@
 }
 
 
-/* INFORMATIONS */
 
 .user-info {
     display: flex;
@@ -164,9 +146,6 @@
 }
 
 
-/* =========================================
-   MENU
-========================================= */
 
 .sidebar-links {
     display: flex;
@@ -183,9 +162,6 @@
 }
 
 
-/* =========================================
-   LIEN
-========================================= */
 
 .link {
     position: relative;
@@ -215,7 +191,6 @@
 }
 
 
-/* ICONE */
 
 .link-icon {
     display: flex;
@@ -227,16 +202,11 @@
 }
 
 
-/* TEXTE */
 
 .link-text {
     flex: 1;
 }
 
-
-/* =========================================
-   HOVER
-========================================= */
 
 .link:hover {
     background: #1f2937;
@@ -247,9 +217,6 @@
 }
 
 
-/* =========================================
-   MENU ACTIF
-========================================= */
 
 .link.active {
     background: #4f46e5;
@@ -261,7 +228,6 @@
 }
 
 
-/* Barre gauche du menu actif */
 
 .link.active::before {
     content: "";
@@ -284,9 +250,7 @@
 }
 
 
-/* =========================================
-   FOOTER
-========================================= */
+   
 
 .sidebar-footer {
     padding: 16px 20px;
@@ -322,11 +286,6 @@
     font-weight: 600;
 }
 
-
-/* =========================================
-   CONTENU PRINCIPAL
-========================================= */
-
 .main-content {
     flex: 1;
 
@@ -338,11 +297,7 @@
 }
 
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 
-/* Gestion du comportement adaptatif mobile */
 @media (max-width: 1023px) {
   .sidebar {
     position: fixed !important;
@@ -354,17 +309,14 @@
     transition: transform 0.3s ease-in-out !important;
   }
   
-  /* Masquée par défaut sur mobile */
   .sidebar.mobile-sidebar-closed {
     transform: translateX(-100%);
   }
   
-  /* Affichée en panneau coulissant */
   .sidebar.mobile-sidebar-open {
     transform: translateX(0);
   }
   
-  /* Le contenu principal prend toute la largeur sur mobile */
   .main-content {
     padding-top: 2px;
     margin-left: 0 !important;

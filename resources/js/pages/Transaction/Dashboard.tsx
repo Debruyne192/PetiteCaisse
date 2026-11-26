@@ -74,7 +74,7 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
     const [selectedTransactionId, setSelectedTransactionId] = useState<number | null>(null);
 
     const formTransaction = useForm({
-        _method: 'POST', // Permet de tricher en PUT lors du traitement du justificatif
+        _method: 'POST', 
         categorie_id: '',
         montant: '',
         type: 'debit',
@@ -111,7 +111,6 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
             setVisibleSuccess(flash?.success);
             setVisibleDanger(flash?.danger || flash?.error);
     
-            // 💡 CORRECTION : Utilisation de "number" ou "any" pour éviter le conflit NodeJS
             let successTimer: any;
             if (flash?.success) {
                 successTimer = setTimeout(() => {
@@ -126,7 +125,6 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
                 }, 5000);
             }
     
-            // Nettoyage des minuteurs
             return () => {
                 clearTimeout(successTimer);
                 clearTimeout(dangerTimer);
@@ -158,7 +156,6 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
             <Head title="Suivi de la Petite Caisse" />            
             {(visibleSuccess || visibleDanger) ? (
                     <div className="space-y-4">
-                        {/* Cas Succès */}
                         {visibleSuccess && (
                             <div className="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-xl flex items-center justify-between shadow-sm transition-all duration-300">
                                 <div className="flex items-center gap-3 text-emerald-800 font-semibold">
@@ -218,13 +215,14 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="bg-[#1e293b] text-white text-xs font-bold uppercase border-b border-gray-200 tracking-wider">
-                                <th className="border-1 border-gray-600 p-4">Date</th>
-                                <th className="border-1 border-gray-600 p-4">Caissier</th>
-                                <th className="border-1 border-gray-600 p-4">Type / Catégorie</th>
-                                <th className="border-1 border-gray-600 p-4">Description / Référence</th>
-                                <th className="border-1 border-gray-600 p-4">Montant</th>
-                                <th className="border-1 border-gray-600 p-4">Statut</th>
-                                <th className="border-1 border-gray-600 p-4 text-center">Actions</th>
+                                <th className="border border-gray-600 p-4">Date</th>
+                                <th className="border border-gray-600 p-4">Caissier</th>
+                                <th className="border border-gray-600 p-4">Type / Catégorie</th>
+                                <th className="border border-gray-600 p-4">Description / Référence</th>
+                                <th className="border border-gray-600 p-4">Montant</th>
+                                <th className="border border-gray-600 p-4">Statut</th>
+                                <th className="border border-gray-600 p-4">Photo de la facture</th>
+                                <th className="border border-gray-600 p-4 text-center">Actions</th>
                             </tr>
                         </thead>
                                         <tbody className="text-gray-700 text-sm divide-y divide-gray-100">
@@ -274,8 +272,7 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
                                         {t.statut === 'validé' ? 'Validé' : t.statut === 'rejeté' ? 'Rejeté' : 'En attente'}
                                     </span>
                                 </td>
-                                <td className="p-4 text-center space-x-2">
-                                    {t.chemin_justificatif && (
+                                <td className="p-4">{t.chemin_justificatif ? (
                                         <a 
                                             href={`/storage/${t.chemin_justificatif}`} 
                                             target="_blank" 
@@ -284,19 +281,23 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
                                         >
                                             <Eye size={14} /> Reçu
                                         </a>
-                                    )}
+                                    ) : (
+                                        <p className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Vide</p>
+                                    )
+                                    }</td>
+                                <td className="p-4 text-center space-x-2">
 
-                                    {/* Actions Caissier (Modification si l'opération est en attente) */}
-                                    {acteur?.role === 'caissier' && t.statut === 'en_attente' && (
+                                    {(acteur?.role === 'caissier' && t.statut === 'en_attente') ? (
                                         <button 
                                             onClick={() => openEditModal(t)} 
                                             className="p-1 text-blue-600 hover:bg-blue-50 rounded inline-flex"
                                         >
-                                            <SquarePen size={16} />
+                                            <SquarePen size={16} /> Modifier
                                         </button>
+                                    ) : (
+                                        <p className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded">Verrouillé</p>
                                     )}
 
-                                    {/* Actions Visa Manager */}
                                     {acteur?.role === 'manager' && t.statut === 'en_attente' && (
                                         <div className="inline-flex space-x-1">
                                             <button 
@@ -395,6 +396,7 @@ export default function Dashboard({ soldeRestant, totalCredits, totalDebits, tra
                                     onChange={e => formTransaction.setData('reference_piece', e.target.value)} 
                                     className="w-full mt-1 border rounded-lg p-2 text-sm" 
                                     placeholder="Ex: FACT-2026-001" 
+                                    required
                                 />
                             </div>
                             <div>
