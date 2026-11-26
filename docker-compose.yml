@@ -11,25 +11,24 @@ services:
     depends_on:
       - db
     environment:
-      - DB_CONNECTION=pgsql
+      - DB_CONNECTION=mysql
       - DB_HOST=db
-      - DB_PORT=5432
+      - DB_PORT=3306
       - DB_DATABASE=petitecaisse
-      - DB_USERNAME=postgres
+      - DB_USERNAME=root
       - DB_PASSWORD=secret
 
   db:
-    image: postgres:16-alpine
+    image: mysql:8.0
     container_name: petitecaisse_db
     restart: always
     environment:
-      POSTGRES_DB: petitecaisse
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secret
+      MYSQL_DATABASE: petitecaisse
+      MYSQL_ROOT_PASSWORD: secret
     ports:
-      - "5433:5432"
+      - "3307:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
 
 volumes:
-  pgdata:
+  mysqldata:
