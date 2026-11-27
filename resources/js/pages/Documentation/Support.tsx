@@ -26,7 +26,7 @@ export default function Support() {
                     <div className="text-indigo-600"><Mail size={20} /></div>
                     <div>
                         <p className="text-xs font-bold text-slate-400 uppercase">Par Email</p>
-                        <p className="text-sm font-semibold text-slate-700 mt-0.5">support@petite-caisse.local</p>
+                        <p className="text-sm font-semibold text-slate-700 mt-0.5">www.beltekglobal.com</p>
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@ export default function Support() {
                     <div className="text-emerald-600"><Phone size={20} /></div>
                     <div>
                         <p className="text-xs font-bold text-slate-400 uppercase">Ligne Interne</p>
-                        <p className="text-sm font-semibold text-slate-700 mt-0.5">Poste technique : #5174</p>
+                        <p className="text-sm font-semibold text-slate-700 mt-0.5">Poste technique : 54-94-81-81/53-94-61-61</p>
                     </div>
                 </div>
             </div>
